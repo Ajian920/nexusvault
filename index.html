@@ -476,16 +476,10 @@ img { max-width: 100%; display: block; }
 }
 .detail-link .btn-sm { flex-shrink: 0; }
 
-/* ═══════════════════ BOTTOM NAV ═══════════════════ */
-
-
-
-
-
 
 /* ═══════════════════ TOAST ═══════════════════ */
 .toast {
-  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
   z-index: 2000;
   padding: 10px 20px; border-radius: 10px;
   background: var(--surface2);
@@ -772,7 +766,6 @@ body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inse
 
 </div>
 
-<!-- BOTTOM NAV -->
 
 <script>
 /* ═══════════════════ DATA ═══════════════════ */
@@ -1005,12 +998,7 @@ function toggleSetting(key) {
   showToast(on ? '已开启' : '已关闭');
 }
 
-/* ═══════════════════ BOTTOM NAV ═══════════════════ */
-function switchView(view, btn) {} else if (view === 'history') {
-    showToast('下载历史即将上线');
-  } else if (view === 'about') {
-    showToast('NexusVault v2.6.0 · 2026-07-03');
-  }
+
 }
 
 /* ═══════════════════ PARTICLES ═══════════════════ */
