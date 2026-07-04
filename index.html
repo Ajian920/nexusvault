@@ -477,29 +477,11 @@ img { max-width: 100%; display: block; }
 .detail-link .btn-sm { flex-shrink: 0; }
 
 /* ═══════════════════ BOTTOM NAV ═══════════════════ */
-.bottom-nav {
-  position: fixed; bottom: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex; justify-content: space-around;
-  padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
-  background: rgba(10,10,18,0.92);
-  backdrop-filter: blur(20px) saturate(1.5);
-  border-top: 1px solid var(--border);
-}
-.bnav-item {
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  padding: 6px 12px;
-  color: var(--muted);
-  font-size: 10px; font-weight: 600;
-  transition: all 0.2s;
-  background: transparent;
-  border-radius: 8px;
-}
-.bnav-item:hover, .bnav-item.active { color: var(--accent); }
-.bnav-item.active {
-  background: rgba(0,240,255,0.08);
-}
-.bnav-item svg { width: 22px; height: 22px; }
+
+
+
+
+
 
 /* ═══════════════════ TOAST ═══════════════════ */
 .toast {
@@ -594,13 +576,38 @@ img { max-width: 100%; display: block; }
   .stats-bar { gap: 40px; }
 }
 
+/* ═══════ MOBILE CAPACITOR PATCH ═══════ */
+@media (max-width: 768px) {
+  .topnav { padding: 0 12px; height: 50px; }
+  .topnav-brand { font-size: 15px !important; }
+  .hero-section { padding: 16px 12px !important; }
+  .hero-title { font-size: 20px !important; }
+  .search-container { margin: 10px 12px !important; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
+  .resource-card { margin: 8px 12px !important; padding: 12px !important; }
+  .card-info { padding-right: 8px !important; }
+  .card-title { font-size: 14px !important; }
+  .card-url { font-size: 10px !important; }
+  .btn-copy, .btn-open { padding: 6px 12px !important; font-size: 12px !important; }
+  .tab-bar { padding: 8px 12px !important; }
+  
+  .modal-content { width: 92% !important; margin: 20px auto !important; padding: 20px !important; }
+  .modal-content h2 { font-size: 18px !important; }
+  .update-url-box { font-size: 10px !important; }
+  body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  input, textarea { -webkit-user-select: text; user-select: text; }
+  * { -webkit-tap-highlight-color: transparent; }
+}
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .hero-title { font-size: 18px !important; }
+  .resource-card { flex-direction: column !important; }
+  .card-buttons { flex-direction: row !important; width: 100% !important; margin-top: 10px !important; }
+  .btn-copy, .btn-open { flex: 1 !important; text-align: center !important; }
+}
+body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+
 </style>
-<meta name="theme-color" content="#0a0a12">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="NexusVault">
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="manifest" href="manifest.json">
 </head>
 <body>
 
@@ -766,24 +773,6 @@ img { max-width: 100%; display: block; }
 </div>
 
 <!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <button class="bnav-item active" onclick="switchView('home', this)">
-    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    首页
-  </button>
-  <button class="bnav-item" onclick="switchView('star', this)">
-    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-    收藏
-  </button>
-  <button class="bnav-item" onclick="switchView('history', this)">
-    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-    历史
-  </button>
-  <button class="bnav-item" onclick="switchView('about', this)">
-    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-    关于
-  </button>
-</nav>
 
 <script>
 /* ═══════════════════ DATA ═══════════════════ */
@@ -1017,14 +1006,7 @@ function toggleSetting(key) {
 }
 
 /* ═══════════════════ BOTTOM NAV ═══════════════════ */
-function switchView(view, btn) {
-  currentView = view;
-  document.querySelectorAll('.bnav-item').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-
-  if (view === 'star') {
-    showToast('收藏功能即将上线');
-  } else if (view === 'history') {
+function switchView(view, btn) {} else if (view === 'history') {
     showToast('下载历史即将上线');
   } else if (view === 'about') {
     showToast('NexusVault v2.6.0 · 2026-07-03');
@@ -1132,49 +1114,5 @@ function initParticles() {
   initParticles();
 })();
 </script>
-
-<!-- PWA Service Worker -->
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('sw.js')
-      .then(reg => console.log('SW registered:', reg.scope))
-      .catch(err => console.log('SW failed:', err));
-  });
-}
-</script>
-
-<style>
-@media (max-width: 768px) {
-  .topnav { padding: 0 12px; height: 50px; }
-  .topnav-brand { font-size: 15px !important; }
-  .hero-section { padding: 16px 12px !important; }
-  .hero-title { font-size: 20px !important; }
-  .search-container { margin: 10px 12px !important; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
-  .resource-card { margin: 8px 12px !important; padding: 12px !important; }
-  .card-info { padding-right: 8px !important; }
-  .card-title { font-size: 14px !important; }
-  .card-url { font-size: 10px !important; }
-  .btn-copy, .btn-open { padding: 6px 12px !important; font-size: 12px !important; }
-  .tab-bar { padding: 8px 12px !important; }
-  .bottom-nav { height: 56px !important; }
-  .modal-content { width: 92% !important; margin: 20px auto !important; padding: 20px !important; }
-  .modal-content h2 { font-size: 18px !important; }
-  .update-url-box { font-size: 10px !important; }
-  body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
-  input, textarea { -webkit-user-select: text; user-select: text; }
-  * { -webkit-tap-highlight-color: transparent; }
-}
-@media (max-width: 480px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  .hero-title { font-size: 18px !important; }
-  .resource-card { flex-direction: column !important; }
-  .card-buttons { flex-direction: row !important; width: 100% !important; margin-top: 10px !important; }
-  .btn-copy, .btn-open { flex: 1 !important; text-align: center !important; }
-}
-body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
-.bottom-nav { padding-bottom: env(safe-area-inset-bottom); }
-</style>
 </body>
 </html>
